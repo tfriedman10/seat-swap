@@ -73,13 +73,24 @@ export function generateEditedTicket(canvas, image, layout, seat) {
     const levelCoverTop = cT + cH * COVER.levelTop;
     const levelCoverH = cH * COVER.levelH;
 
-    paintOver(ctx, bg, X.levelLx * W - W * 0.01, levelCoverTop, COVER.levelW * W, levelCoverH);
+    // Measure the prefix to find exactly where the level digit starts,
+    // so we preserve the original "Enter Gate – Level " text and only
+    // erase and replace from the digit onward (including any trailing text).
+    ctx.font = `400 ${Math.round(levelFs)}px ${FONT_FAMILY}`;
+    ctx.textBaseline = 'middle';
+    const prefix = `Enter LF Gate - Level `;
+    const levelLx = X.levelLx * W;
+    const prefixW = ctx.measureText(prefix).width;
+    const digitX = levelLx + prefixW;
+    const coverRight = (X.levelLx + COVER.levelW) * W;
+
+    paintOver(ctx, bg, digitX, levelCoverTop, coverRight - digitX, levelCoverH);
 
     if (layout.hasDistrict) {
       paintOver(ctx, bg, COVER.distLx * W, levelCoverTop, COVER.distW * W, levelCoverH);
     }
 
     const levelNum = seat.section.charAt(0) || '1';
-    drawText(ctx, `Enter Gate \u2013 Level ${levelNum}`, X.levelLx * W, levelCy, levelFs, '400');
+    drawText(ctx, levelNum, digitX, levelCy, levelFs, '400');
   }
 }
