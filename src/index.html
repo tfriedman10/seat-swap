@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Seat Swap</title>
+</head>
+<body>
+  <div class="app">
+    <div class="hdr">
+      <h1>⚾ Seat Swap</h1>
+      <p>Replace seat info on your MLB ticket</p>
+    </div>
+
+    <div class="steps">
+      <div class="sp a" id="s1"></div>
+      <div class="sp" id="s2"></div>
+      <div class="sp" id="s3"></div>
+    </div>
+
+    <!-- Step 1: Upload -->
+    <div id="step1">
+      <div class="uz" id="uz">
+        <div class="ic">🎟️</div>
+        <div class="lb">Upload ticket screenshot</div>
+        <div class="sl">Ballpark app or Apple Wallet</div>
+      </div>
+      <input type="file" id="fi" accept="image/*">
+    </div>
+
+    <!-- Step 2: Edit -->
+    <div id="step2" class="hidden">
+      <div class="pw" id="pw">
+        <img id="pi" alt="Ticket preview">
+        <button class="cb" id="bc">Change</button>
+      </div>
+      <div id="di"></div>
+      <div id="ef"></div>
+      <div class="acts">
+        <button class="btn b1" id="bg" disabled>⚾ Generate Edited Ticket</button>
+        <button class="btn b3" id="br">Start Over</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Result -->
+    <div id="step3" class="hidden">
+      <canvas id="rc"></canvas>
+      <div class="acts">
+        <button class="btn b1" id="bd">💾 Save to Photos</button>
+        <button class="btn b2" id="bb">← Back to Edit</button>
+        <button class="btn b3" id="br2">Start Over</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/main.js"></script>
+</body>
+</html>

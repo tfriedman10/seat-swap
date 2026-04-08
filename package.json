@@ -1,0 +1,14 @@
+{
+  "name": "seat-swap",
+  "version": "1.0.0",
+  "description": "Replace seat info on MLB ticket screenshots",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0"
+  }
+}
