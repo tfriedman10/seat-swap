@@ -122,13 +122,13 @@ function buildLevelAdjustUI() {
       </div>
       <div class="la-row">
         <div class="la-lbl">↕ Vertical</div>
-        <input type="range" id="la-vert" min="-0.03" max="0.03" step="0.002" value="0.005">
-        <div class="la-val" id="la-vert-v">+0.005</div>
+        <input type="range" id="la-vert" min="-0.03" max="0.03" step="0.002" value="0.002">
+        <div class="la-val" id="la-vert-v">+0.002</div>
       </div>
       <div class="la-row">
         <div class="la-lbl">Font size</div>
-        <input type="range" id="la-fs" min="0.5" max="2.0" step="0.05" value="1">
-        <div class="la-val" id="la-fs-v">100%</div>
+        <input type="range" id="la-fs" min="0.5" max="2.0" step="0.05" value="0.95">
+        <div class="la-val" id="la-fs-v">95%</div>
       </div>
     </div>`;
 

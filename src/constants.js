@@ -21,7 +21,7 @@ export const X = {
   rowLx: 0.496,
   seatLx: 0.85,
   levelLx: 0.093,
-  levelDigitLx: 0.560, // left edge of the level digit — calibrate if needed
+  levelDigitLx: 0.554, // left edge of the level digit — calibrate if needed
 };
 
 /** Font size as fraction of card height. */
