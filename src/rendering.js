@@ -68,14 +68,17 @@ export function generateEditedTicket(canvas, image, layout, seat, levelOverrides
 
   // Level / gate text
   if (layout.hasLevel) {
-    const levelCy = cT + cH * CARD_Y.levelCy;
+    const vOff = (levelOverrides.vertOffset ?? 0.005) * H;
+    const levelCy = cT + cH * CARD_Y.levelCy + vOff;
     const levelFs = cH * FONT.levelFs;
-    const levelCoverTop = cT + cH * COVER.levelTop;
+    const levelCoverTop = cT + cH * COVER.levelTop + vOff;
     const levelCoverH = cH * COVER.levelH;
 
     const digitX = (levelOverrides.digitLx ?? X.levelDigitLx) * W;
     const scaledFs = levelFs * (levelOverrides.fontScale ?? 1);
-    const coverRight = (X.levelLx + COVER.levelW) * W;
+    // Ensure the cover always extends at least 0.1*W past the digit,
+    // so it doesn't vanish when the position slider is moved far right.
+    const coverRight = Math.max((X.levelLx + COVER.levelW) * W, digitX + 0.1 * W);
 
     paintOver(ctx, bg, digitX, levelCoverTop, coverRight - digitX, levelCoverH);
 

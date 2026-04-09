@@ -117,12 +117,17 @@ function buildLevelAdjustUI() {
       <div class="la-title">Level text fine-tune</div>
       <div class="la-row">
         <div class="la-lbl">◀ Position ▶</div>
-        <input type="range" id="la-pos" min="0.28" max="0.56" step="0.002" value="${X.levelDigitLx}">
+        <input type="range" id="la-pos" min="0.28" max="0.75" step="0.002" value="${X.levelDigitLx}">
         <div class="la-val" id="la-pos-v">${X.levelDigitLx.toFixed(3)}</div>
       </div>
       <div class="la-row">
+        <div class="la-lbl">↕ Vertical</div>
+        <input type="range" id="la-vert" min="-0.03" max="0.03" step="0.002" value="0.005">
+        <div class="la-val" id="la-vert-v">+0.005</div>
+      </div>
+      <div class="la-row">
         <div class="la-lbl">Font size</div>
-        <input type="range" id="la-fs" min="0.6" max="1.5" step="0.05" value="1">
+        <input type="range" id="la-fs" min="0.5" max="2.0" step="0.05" value="1">
         <div class="la-val" id="la-fs-v">100%</div>
       </div>
     </div>`;
@@ -130,14 +135,18 @@ function buildLevelAdjustUI() {
   function rerender() {
     levelOverrides = {
       digitLx: parseFloat($('la-pos').value),
+      vertOffset: parseFloat($('la-vert').value),
       fontScale: parseFloat($('la-fs').value),
     };
     $('la-pos-v').textContent = levelOverrides.digitLx.toFixed(3);
+    const v = levelOverrides.vertOffset;
+    $('la-vert-v').textContent = (v >= 0 ? '+' : '') + v.toFixed(3);
     $('la-fs-v').textContent = Math.round(levelOverrides.fontScale * 100) + '%';
     generateEditedTicket($('rc'), origImg, layout, currentSeat, levelOverrides);
   }
 
   $('la-pos').addEventListener('input', rerender);
+  $('la-vert').addEventListener('input', rerender);
   $('la-fs').addEventListener('input', rerender);
 }
 

@@ -21,13 +21,13 @@ export const X = {
   rowLx: 0.496,
   seatLx: 0.85,
   levelLx: 0.093,
-  levelDigitLx: 0.41, // left edge of the level digit (after "Enter LF Gate - Level ") — calibrate if needed
+  levelDigitLx: 0.560, // left edge of the level digit — calibrate if needed
 };
 
 /** Font size as fraction of card height. */
 export const FONT = {
   valFs: 0.052,
-  levelFs: 0.042,
+  levelFs: 0.057,
 };
 
 /** Cover-rectangle dimensions (fractions of card height / image width). */
