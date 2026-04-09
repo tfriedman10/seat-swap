@@ -21,6 +21,7 @@ export const X = {
   rowLx: 0.496,
   seatLx: 0.85,
   levelLx: 0.093,
+  levelDigitLx: 0.41, // left edge of the level digit (after "Enter LF Gate - Level ") — calibrate if needed
 };
 
 /** Font size as fraction of card height. */

@@ -33,7 +33,7 @@ function drawText(ctx, text, x, y, fontSize, weight = '500') {
  * @param {object}            layout  – layout descriptor from detection
  * @param {{ section: string, row: string, seat: string }} seat
  */
-export function generateEditedTicket(canvas, image, layout, seat) {
+export function generateEditedTicket(canvas, image, layout, seat, levelOverrides = {}) {
   const W = image.width;
   const H = image.height;
   canvas.width = W;
@@ -73,15 +73,8 @@ export function generateEditedTicket(canvas, image, layout, seat) {
     const levelCoverTop = cT + cH * COVER.levelTop;
     const levelCoverH = cH * COVER.levelH;
 
-    // Measure the prefix to find exactly where the level digit starts,
-    // so we preserve the original "Enter Gate – Level " text and only
-    // erase and replace from the digit onward (including any trailing text).
-    ctx.font = `400 ${Math.round(levelFs)}px ${FONT_FAMILY}`;
-    ctx.textBaseline = 'middle';
-    const prefix = `Enter LF Gate - Level `;
-    const levelLx = X.levelLx * W;
-    const prefixW = ctx.measureText(prefix).width;
-    const digitX = levelLx + prefixW;
+    const digitX = (levelOverrides.digitLx ?? X.levelDigitLx) * W;
+    const scaledFs = levelFs * (levelOverrides.fontScale ?? 1);
     const coverRight = (X.levelLx + COVER.levelW) * W;
 
     paintOver(ctx, bg, digitX, levelCoverTop, coverRight - digitX, levelCoverH);
@@ -91,6 +84,6 @@ export function generateEditedTicket(canvas, image, layout, seat) {
     }
 
     const levelNum = seat.section.charAt(0) || '1';
-    drawText(ctx, levelNum, digitX, levelCy, levelFs, '400');
+    drawText(ctx, levelNum, digitX, levelCy, scaledFs, '400');
   }
 }

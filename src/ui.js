@@ -5,11 +5,14 @@
 
 import { detectLayout } from './detection.js';
 import { generateEditedTicket } from './rendering.js';
+import { X } from './constants.js';
 
 // ── State ──────────────────────────────────────────────────────────
 
 let origImg = null;
 let layout = null;
+let currentSeat = null;
+let levelOverrides = {};
 
 // ── Helpers ────────────────────────────────────────────────────────
 
@@ -33,6 +36,9 @@ function checkForm() {
 function reset() {
   origImg = null;
   layout = null;
+  currentSeat = null;
+  levelOverrides = {};
+  $('la').innerHTML = '';
   $('fi').value = '';
   goToStep(1);
 }
@@ -91,14 +97,48 @@ function buildEditUI() {
 // ── Generate & download ────────────────────────────────────────────
 
 function handleGenerate() {
-  const seat = {
+  currentSeat = {
     section: $('is').value.trim(),
     row: $('ir').value.trim(),
     seat: $('it').value.trim(),
   };
+  levelOverrides = {};
 
-  generateEditedTicket($('rc'), origImg, layout, seat);
+  generateEditedTicket($('rc'), origImg, layout, currentSeat, levelOverrides);
   goToStep(3);
+  buildLevelAdjustUI();
+}
+
+function buildLevelAdjustUI() {
+  if (!layout.hasLevel) { $('la').innerHTML = ''; return; }
+
+  $('la').innerHTML = `
+    <div class="la-panel">
+      <div class="la-title">Level text fine-tune</div>
+      <div class="la-row">
+        <div class="la-lbl">◀ Position ▶</div>
+        <input type="range" id="la-pos" min="0.28" max="0.56" step="0.002" value="${X.levelDigitLx}">
+        <div class="la-val" id="la-pos-v">${X.levelDigitLx.toFixed(3)}</div>
+      </div>
+      <div class="la-row">
+        <div class="la-lbl">Font size</div>
+        <input type="range" id="la-fs" min="0.6" max="1.5" step="0.05" value="1">
+        <div class="la-val" id="la-fs-v">100%</div>
+      </div>
+    </div>`;
+
+  function rerender() {
+    levelOverrides = {
+      digitLx: parseFloat($('la-pos').value),
+      fontScale: parseFloat($('la-fs').value),
+    };
+    $('la-pos-v').textContent = levelOverrides.digitLx.toFixed(3);
+    $('la-fs-v').textContent = Math.round(levelOverrides.fontScale * 100) + '%';
+    generateEditedTicket($('rc'), origImg, layout, currentSeat, levelOverrides);
+  }
+
+  $('la-pos').addEventListener('input', rerender);
+  $('la-fs').addEventListener('input', rerender);
 }
 
 function handleDownload() {

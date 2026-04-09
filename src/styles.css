@@ -243,6 +243,50 @@ body {
   display: block;
 }
 
+/* ── Level fine-tune panel ─────────────────────────────────────── */
+
+.la-panel {
+  background: var(--sf);
+  border: 1px solid var(--bdr);
+  border-radius: var(--r);
+  padding: 14px;
+  margin-top: 12px;
+}
+.la-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--dim);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 12px;
+}
+.la-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.la-row:last-child { margin-bottom: 0; }
+.la-lbl {
+  font-size: 11px;
+  color: var(--dim);
+  width: 72px;
+  flex-shrink: 0;
+}
+.la-row input[type=range] {
+  flex: 1;
+  accent-color: var(--acc);
+  cursor: pointer;
+}
+.la-val {
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  color: var(--tx);
+  width: 36px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
 /* ── Utility ───────────────────────────────────────────────────── */
 
 .hidden { display: none !important; }
